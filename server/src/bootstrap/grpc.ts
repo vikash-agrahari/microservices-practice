@@ -7,11 +7,11 @@ import {
   ServerCredentials,
   loadPackageDefinition,
 } from "@grpc/grpc-js";
-import { processRoute } from "../routes/process.routes";
+import { serverRoute } from "../routes/server.routes";
 
 export class Grpc {
-  private protoFilePath = "./../../../../proto/processing.proto";
-  public processPackage: any;
+  private protoFilePath = "./../../../../proto/server.proto";
+  public serverPackage: any;
   public grpcServer: grpc.Server;
   private port: number = 5002;
 
@@ -30,7 +30,7 @@ export class Grpc {
   };
 
   /**
-   * @description Load Proto file for process Service
+   * @description Load Proto file for server Service
    */
   private loadProtoFile(): void {
     const protoOptions: Options = this.GRPC.PROTO_FILE_OPTIONS;
@@ -41,14 +41,14 @@ export class Grpc {
     );
 
     const grpcObject: GrpcObject = loadPackageDefinition(packageDefinition);
-    this.processPackage = grpcObject.processingPackage;
+    this.serverPackage = grpcObject.serverPackage;
   }
 
   /**
-   * @description Expose Process services
+   * @description Expose Server services
    */
   private loadServiceDefinition(): void {
-    processRoute.loadServiceDefinition(this.grpcServer, this.processPackage);
+    serverRoute.loadServiceDefinition(this.grpcServer, this.serverPackage);
   }
 
   /**

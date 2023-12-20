@@ -1,12 +1,17 @@
 syntax = "proto3";
-package processingPackage;
+package serverPackage;
 
 service Processing {
   rpc InputName (NamePayload) returns (Response) {}
+  rpc InputEmail (EmailPayload) returns (Response) {}
 }
 
 message NamePayload{
     string name = 1;
+}
+
+message EmailPayload{
+    string email = 1;
 }
 
 message Response {

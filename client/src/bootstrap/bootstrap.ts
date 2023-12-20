@@ -1,4 +1,4 @@
-import { Process } from "../providers/grpc/process/process.service";
+import { Server } from "../providers/grpc/server/server.service";
 import { App } from "./app";
 import { Grpc } from "./grpc";
 
@@ -17,7 +17,9 @@ export class Bootstrap {
   private async startApplication() {
     this.grpc = new Grpc();
     this.app = new App();
-    const name = 'Vikash Agrahari';
-    Process.inputName({name});
+    const name = "Bharat";
+    Server.inputName({ name });
+    const email = "bharat@appinventiv.com";
+    Server.inputEmail({ email });
   }
 }

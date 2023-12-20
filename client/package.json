@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "tsc",
-    "start:process": "npm run build && node build/server.js"
+    "start:client": "npm run build && node build/server.js"
   },
   "keywords": [],
   "author": "",

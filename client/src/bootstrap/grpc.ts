@@ -7,11 +7,10 @@ import {
   ServerCredentials,
   loadPackageDefinition,
 } from "@grpc/grpc-js";
-import { Degree } from "../degree.service";
 
 export class Grpc {
-  private protoFilePath = "./../../../../proto/degree.proto";
-  public degreePackage: any;
+  private protoFilePath = "./../../../../proto/client.proto";
+  public clientPackage: any;
   public grpcServer: grpc.Server;
   private grpcPort: number = 5001;
 
@@ -30,7 +29,7 @@ export class Grpc {
   };
 
   /**
-   * @description Load Proto file for degree Service
+   * @description Load Proto file for client Service
    */
   private loadProtoFile(): void {
     const protoOptions: Options = this.GRPC.PROTO_FILE_OPTIONS;
@@ -41,22 +40,15 @@ export class Grpc {
     );
 
     const grpcObject: GrpcObject = loadPackageDefinition(packageDefinition);
-    this.degreePackage = grpcObject.degreePackage;
+    this.clientPackage = grpcObject.clientPackage;
   }
 
-  /**
-   * @description Expose Degree services
-   */
-  private loadServiceDefinition(): void {
-    const grpcPackage = this.degreePackage;
+  // /**
+  //  * @description Expose client services
+  //  */
+  // private loadServiceDefinition(): void {
 
-    const serviceDefinition: grpc.ServiceDefinition<any> = grpcPackage.Degrees
-      .service as any;
-    const untypedServiceImplementation: grpc.UntypedServiceImplementation = {
-      find: Degree.findDegree,
-    } as any;
-    this.grpcServer.addService(serviceDefinition, untypedServiceImplementation);
-  }
+  // }
 
   /**
    * @description initialise Grpc Server
@@ -91,7 +83,7 @@ export class Grpc {
   private startGrpcServer() {
     this.loadProtoFile();
     this.grpcServer = new Server();
-    this.loadServiceDefinition();
+    //this.loadServiceDefinition();
     this.initialiseGrpcServer();
   }
 }
